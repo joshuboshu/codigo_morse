@@ -8,9 +8,7 @@
  * - El alfabeto morse soportado será el mostrado en
  *   https://es.wikipedia.org/wiki/Código_morse.
 """
-
 from os import system
-
 
 # Diccionario de conversión de texto a código Morse
 codigo_morse = {'A': '·−', 'B': '−···', 'C': '−·−·', 'D': '−··', 'E': '·',
@@ -23,12 +21,28 @@ codigo_morse = {'A': '·−', 'B': '−···', 'C': '−·−·', 'D': '−··
 # Diccionario inverso de conversión de código Morse a texto
 texto_morse = {mor: let for let, mor in codigo_morse.items()}
 
-def convertir_morse(text: str):
+def convertir_morse(text: str) -> str:
+    """Convierte una cadena de texto en código Morse.
+
+    Args:
+        text (str): El texto a convertir a código Morse.
+
+    Returns:
+        str: El texto convertido en código Morse, con cada letra separada por un espacio.
+    """
     text = text.upper()
     text_mod = ' '.join(codigo_morse.get(letra, '') for letra in text)
     return text_mod
 
-def convertir_palabra(mor):
+def convertir_palabra(mor: str) -> str:
+    """Convierte una cadena de código Morse en texto.
+
+    Args:
+        mor (str): El código Morse a convertir en texto.
+
+    Returns:
+        str: El texto traducido del código Morse.
+    """
     palabras = mor.split('  ')  # Dos espacios entre palabras
     mor_mod = ''
     for palabra in palabras:
@@ -39,20 +53,20 @@ def convertir_palabra(mor):
         mor_mod += ' '
     return mor_mod.strip()
 
-print('*'*50)
+# Inicio del programa
+print('*' * 50)
 print('CONVERTIDOR DE MORSE A PALABRA Y PALABRA A MORSE')
-print('*'*50)
+print('*' * 50)
 
-# Elegimos si queremos convertir un texto o un código morse
 print('Ingrese "T" si desea modificar un texto a morse')
 print('Ingrese "m" si desea modificar de morse a texto')
 
 nuevo = ''
 
 while nuevo != 'N':
-    elegir = str(input('Su elección: ')).upper() # Aqui el usuario elige la conversion que desea
+    elegir = str(input('Su elección: ')).upper()  # Aquí el usuario elige la conversión que desea
 
-    system('cls')
+    system('cls')  # Limpia la pantalla (en sistemas Windows)
 
     if elegir == 'T':
         texto = input('Ingrese el texto a convertir a morse: ')
@@ -65,7 +79,6 @@ while nuevo != 'N':
     else:
         print('Opción no válida. Por favor, ingrese "T" o "m".')
 
-    nuevo = input('Desea continuar? (Y/N) ').upper()   # Preguntamos al usuario si quiere continuar utilizando el programa
+    nuevo = input('Desea continuar? (Y/N) ').upper()  # Preguntamos al usuario si quiere continuar utilizando el programa
     if nuevo == 'N':
         print('GRACIAS POR UTILIZAR EL PROGRAMA!')
-
