@@ -30,9 +30,12 @@ def convertir_morse(text: str) -> str:
     Returns:
         str: El texto convertido en código Morse, con cada letra separada por un espacio.
     """
-    text = text.upper()
-    text_mod = ' '.join(codigo_morse.get(letra, '') for letra in text)
-    return text_mod
+    try:
+        text = text.upper()
+        text_mod = ' '.join(codigo_morse.get(letra, '') for letra in text)
+        return text_mod
+    except Exception as e:
+        return f"Error al convertir texto a morse: {e}"
 
 def convertir_palabra(mor: str) -> str:
     """Convierte una cadena de código Morse en texto.
@@ -43,15 +46,18 @@ def convertir_palabra(mor: str) -> str:
     Returns:
         str: El texto traducido del código Morse.
     """
-    palabras = mor.split('  ')  # Dos espacios entre palabras
-    mor_mod = ''
-    for palabra in palabras:
-        letras = palabra.split(' ')  # Un espacio entre letras
-        for letra in letras:
-            if letra in texto_morse:
-                mor_mod += texto_morse[letra]
-        mor_mod += ' '
-    return mor_mod.strip()
+    try:
+        palabras = mor.split('  ')  # Dos espacios entre palabras
+        mor_mod = ''
+        for palabra in palabras:
+            letras = palabra.split(' ')  # Un espacio entre letras
+            for letra in letras:
+                if letra in texto_morse:
+                    mor_mod += texto_morse[letra]
+            mor_mod += ' '
+        return mor_mod.strip()
+    except Exception as e:
+        return f"Error al convertir morse a texto: {e}"
 
 # Inicio del programa
 print('*' * 50)
@@ -64,21 +70,24 @@ print('Ingrese "m" si desea modificar de morse a texto')
 nuevo = ''
 
 while nuevo != 'N':
-    elegir = str(input('Su elección: ')).upper()  # Aquí el usuario elige la conversión que desea
+    try:
+        elegir = str(input('Su elección: ')).upper()  # Aquí el usuario elige la conversión que desea
 
-    system('cls')  # Limpia la pantalla (en sistemas Windows)
+        system('cls')  # Limpia la pantalla (en sistemas Windows)
 
-    if elegir == 'T':
-        texto = input('Ingrese el texto a convertir a morse: ')
-        resultado = convertir_morse(texto)
-        print(f'Texto convertido a morse: {resultado}')
-    elif elegir == 'M':
-        morse = input('Ingrese el código morse a convertir a texto: ')
-        resultado = convertir_palabra(morse)
-        print(f'Código morse convertido a texto: {resultado}')
-    else:
-        print('Opción no válida. Por favor, ingrese "T" o "m".')
+        if elegir == 'T':
+            texto = input('Ingrese el texto a convertir a morse: ')
+            resultado = convertir_morse(texto)
+            print(f'Texto convertido a morse: {resultado}')
+        elif elegir == 'M':
+            morse = input('Ingrese el código morse a convertir a texto: ')
+            resultado = convertir_palabra(morse)
+            print(f'Código morse convertido a texto: {resultado}')
+        else:
+            print('Opción no válida. Por favor, ingrese "T" o "m".')
 
-    nuevo = input('Desea continuar? (Y/N) ').upper()  # Preguntamos al usuario si quiere continuar utilizando el programa
-    if nuevo == 'N':
-        print('GRACIAS POR UTILIZAR EL PROGRAMA!')
+        nuevo = input('Desea continuar? (Y/N) ').upper()  # Preguntamos al usuario si quiere continuar utilizando el programa
+        if nuevo == 'N':
+            print('GRACIAS POR UTILIZAR EL PROGRAMA!')
+    except Exception as e:
+        print(f"Se produjo un error: {e}")
